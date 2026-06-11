@@ -91,12 +91,12 @@ namespace BarkFart.Features
                 }
 
                 if (leftTool)
-                    previousLeft[actor] = player.leftHand.OIDGJKOGAIJ;
+                    previousLeft[actor] = leftTool;
                 else
                     previousLeft.Remove(actor);
 
-                if (leftTool)
-                    previousRight[actor] = player.rightHand.OIDGJKOGAIJ;
+                if (rightTool)
+                    previousRight[actor] = rightTool;
                 else
                     previousRight.Remove(actor);
             }
