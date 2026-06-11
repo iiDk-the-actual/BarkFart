@@ -73,34 +73,45 @@ namespace BarkFart.Features
         {
             foreach (var player in Player.All)
             {
-                var actor = player.owner.ActorNumber;
-
-                var leftTool = player.leftHand.OIDGJKOGAIJ;
-                var rightTool = player.rightHand.OIDGJKOGAIJ;
-
-                if (leftTool == null && previousLeft.ContainsKey(actor))
+                // Worst code
+                try
                 {
-                    if (previousLeft[actor].gameObject.name.Contains("[Basketball]"))
-                        previousLeft[actor].gameObject.AddComponent<ThrownObject>();
-                }
+                    var actor = player.owner.ActorNumber;
 
-                if (rightTool == null && previousRight.ContainsKey(actor))
-                {
-                    if (previousRight[actor].gameObject.name.Contains("[Basketball]"))
-                        previousRight[actor].gameObject.AddComponent<ThrownObject>();
-                }
+                    var leftTool = player.leftHand.OIDGJKOGAIJ;
+                    var rightTool = player.rightHand.OIDGJKOGAIJ;
 
-                if (leftTool)
-                    previousLeft[actor] = leftTool;
-                else
-                    previousLeft.Remove(actor);
+                    try
+                    {
+                        if (leftTool == null && previousLeft.ContainsKey(actor))
+                        {
+                            if (previousLeft[actor].gameObject.name.Contains("[Basketball]"))
+                                previousLeft[actor].gameObject.AddComponent<ThrownObject>();
+                        }
+                    }
+                    catch { }
 
-                if (rightTool)
-                    previousRight[actor] = rightTool;
-                else
-                    previousRight.Remove(actor);
+                    try
+                    {
+                        if (rightTool == null && previousRight.ContainsKey(actor))
+                        {
+                            if (previousRight[actor].gameObject.name.Contains("[Basketball]"))
+                                previousRight[actor].gameObject.AddComponent<ThrownObject>();
+                        }
+                    }
+                    catch { }
+
+                    if (leftTool)
+                        previousLeft[actor] = leftTool;
+                    else
+                        previousLeft.Remove(actor);
+
+                    if (rightTool)
+                        previousRight[actor] = rightTool;
+                    else
+                        previousRight.Remove(actor);
+                } catch { }
             }
-            
         }
 
         // Thank the god ChatGPT for the WAV formula
