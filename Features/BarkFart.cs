@@ -66,28 +66,41 @@ namespace BarkFart.Features
             }
         }
 
-        private Tool previousLeft;
-        private Tool previousRight;
+        private Dictionary<int, Tool> previousLeft;
+        private Dictionary<int, Tool> previousRight;
 
         public void Update()
         {
-            var leftTool = PlayerRoot.LeftHand.OIDGJKOGAIJ;
-            var rightTool = PlayerRoot.RightHand.OIDGJKOGAIJ;
-
-            if (leftTool == null && previousLeft != null)
+            foreach (var player in Player.All)
             {
-                if (previousLeft.gameObject.name.Contains("[Basketball]"))
-                    previousLeft.gameObject.AddComponent<ThrownObject>();
-            }
+                var actor = player.owner.ActorNumber;
 
-            if (rightTool == null && previousRight != null)
-            {
-                if (previousRight.gameObject.name.Contains("[Basketball]"))
-                    previousRight.gameObject.AddComponent<ThrownObject>();
-            }
+                var leftTool = player.leftHand.OIDGJKOGAIJ;
+                var rightTool = player.rightHand.OIDGJKOGAIJ;
 
-            previousLeft = leftTool;
-            previousRight = rightTool;
+                if (leftTool == null && previousLeft.ContainsKey(actor))
+                {
+                    if (previousLeft[actor].gameObject.name.Contains("[Basketball]"))
+                        previousLeft[actor].gameObject.AddComponent<ThrownObject>();
+                }
+
+                if (rightTool == null && previousRight.ContainsKey(actor))
+                {
+                    if (previousRight[actor].gameObject.name.Contains("[Basketball]"))
+                        previousRight[actor].gameObject.AddComponent<ThrownObject>();
+                }
+
+                if (leftTool)
+                    previousLeft[actor] = player.leftHand.OIDGJKOGAIJ;
+                else
+                    previousLeft.Remove(actor);
+
+                if (leftTool)
+                    previousRight[actor] = player.rightHand.OIDGJKOGAIJ;
+                else
+                    previousRight.Remove(actor);
+            }
+            
         }
 
         // Thank the god ChatGPT for the WAV formula
