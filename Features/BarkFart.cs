@@ -66,8 +66,8 @@ namespace BarkFart.Features
             }
         }
 
-        private Dictionary<int, Tool> previousLeft;
-        private Dictionary<int, Tool> previousRight;
+        private Dictionary<int, Tool> previousLeft = new();
+        private Dictionary<int, Tool> previousRight = new();
 
         public void Update()
         {
